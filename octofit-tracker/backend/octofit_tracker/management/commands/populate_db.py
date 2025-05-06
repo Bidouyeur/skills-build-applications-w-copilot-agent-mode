@@ -1,24 +1,17 @@
 from django.core.management.base import BaseCommand
 from octofit_tracker.models import User, Team, Activity, Leaderboard, Workout
-from django.conf import settings
-from pymongo import MongoClient
-from datetime import timedelta
-from bson import ObjectId
+
 
 class Command(BaseCommand):
     help = 'Populate the database with test data for users, teams, activity, leaderboard, and workouts'
 
     def handle(self, *args, **kwargs):
-        # Connexion à MongoDB
-        client = MongoClient(settings.DATABASES['default']['CLIENT']['host'])
-        db = client[settings.DATABASES['default']['NAME']]
-
-        # Suppression des collections existantes
-        db.users.drop()
-        db.teams.drop()
-        db.activity.drop()
-        db.leaderboard.drop()
-        db.workouts.drop()
+        # Suppression des anciennes données
+        User.objects.all().delete()
+        Team.objects.all().delete()
+        Activity.objects.all().delete()
+        Leaderboard.objects.all().delete()
+        Workout.objects.all().delete()
 
         # Création des utilisateurs
         users = [
