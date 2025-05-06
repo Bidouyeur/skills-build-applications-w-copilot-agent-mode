@@ -42,4 +42,5 @@ urlpatterns = [
     path('', api_root, name='api-root'),  # racine = api_root
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
+    path('views/', api_root, name='api-views'),
 ]
