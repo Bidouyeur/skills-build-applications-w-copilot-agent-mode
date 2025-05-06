@@ -1,3 +1,5 @@
+# URL de base de l'API pour le Codespace (pour usage dans les vues ou le frontend)
+API_BASE_URL = "https://potential-carnival-j7q6q94px7jfp95g-8000.app.github.dev/api/"
 """
 Django settings for octofit_tracker project.
 
@@ -26,8 +28,14 @@ SECRET_KEY = "django-insecure-_ft%q*7+0f^5#i$(n2v8s7cqe-cl6dr__$y6kn@o-ayack&xvv
 DEBUG = True
 
 
-# Autoriser tous les hôtes
-ALLOWED_HOSTS = ["*"]
+
+# Autoriser tous les hôtes nécessaires (localhost et Codespace)
+ALLOWED_HOSTS = [
+    "*",
+    "localhost",
+    "127.0.0.1",
+    "potential-carnival-j7q6q94px7jfp95g-8000.app.github.dev"
+]
 
 
 # Application definition
