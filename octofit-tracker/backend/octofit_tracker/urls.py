@@ -28,19 +28,8 @@ router.register(r'activities', ActivityViewSet)
 router.register(r'workouts', WorkoutViewSet)
 router.register(r'leaderboard', LeaderboardViewSet)
 
-@api_view(['GET'])
-def api_root(request, format=None):
-    return Response({
-        'users': '/api/users/',
-        'teams': '/api/teams/',
-        'activities': '/api/activities/',
-        'workouts': '/api/workouts/',
-        'leaderboard': '/api/leaderboard/',
-    })
-
 urlpatterns = [
-    path('', api_root, name='api-root'),  # racine = api_root
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('views/', api_root, name='api-views'),
+    path('', include(router.urls)),  # api_root
 ]

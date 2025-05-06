@@ -1,10 +1,19 @@
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import User, Team, Activity, Workout, Leaderboard
 from .serializers import UserSerializer, TeamSerializer, ActivitySerializer, WorkoutSerializer, LeaderboardSerializer
 
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from django.conf import settings
+@api_view(['GET'])
+def api_root(request, format=None):
+    base_url = "https://potential-carnival-j7q6q94px7jfp95g-8000.app.github.dev/"
+    return Response({
+        'users': base_url + 'api/users/',
+        'teams': base_url + 'api/teams/',
+        'activities': base_url + 'api/activities/',
+        'leaderboard': base_url + 'api/leaderboard/',
+        'workouts': base_url + 'api/workouts/'
+    })
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
@@ -26,13 +35,4 @@ class LeaderboardViewSet(viewsets.ModelViewSet):
     queryset = Leaderboard.objects.all()
     serializer_class = LeaderboardSerializer
 
-@api_view(['GET'])
-def api_root(request, format=None):
-    base_url = getattr(settings, 'API_BASE_URL', 'http://localhost:8000/api/')
-    return Response({
-        'users': base_url + 'users/?format=api',
-        'teams': base_url + 'teams/?format=api',
-        'activities': base_url + 'activities/?format=api',
-        'leaderboard': base_url + 'leaderboard/?format=api',
-        'workouts': base_url + 'workouts/?format=api'
-    })
+
