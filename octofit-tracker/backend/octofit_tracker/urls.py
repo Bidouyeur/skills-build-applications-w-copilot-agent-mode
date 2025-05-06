@@ -39,7 +39,7 @@ def api_root(request, format=None):
     })
 
 urlpatterns = [
+    path('', api_root, name='api-root'),  # racine = api_root
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path('api/', api_root, name='api-root'),
 ]
